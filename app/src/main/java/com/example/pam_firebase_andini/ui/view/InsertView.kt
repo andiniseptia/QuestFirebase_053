@@ -93,7 +93,26 @@ fun InsertMhsView(
                 }
             )
         }
-    ) {
+    ) { padding ->
+        Column (
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ) {
+            InsertBodyMhs(
+                uiState = uiEvent,
+                homeUiState = uiState,
+                onValueChange = { updatedEvent ->
+                    viewModel.updateState(updatedEvent)
+                },
+                onClick = {
+                    if (viewModel.validateFields()) {
+                        viewModel.insertMhs()
+                    }
+                }
+            )
+        }
     }
 }
 
