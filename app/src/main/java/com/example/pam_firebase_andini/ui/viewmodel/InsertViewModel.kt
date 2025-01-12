@@ -60,6 +60,9 @@ class InsertViewModel (
         uiState = FormState.Idle
     }
 
+    fun resetSnackBarMessage() {
+        uiState = FormState.Idle
+    }
 }
 
 sealed class FormState {
