@@ -14,5 +14,11 @@ fun PengelolaHalaman(
     modifier: Modifier,
     navController: NavHostController = rememberNavController()
 ) {
+    NavHost(
+        navController = navController,
+        startDestination = DestinasiHome.route,
+        modifier = Modifier
+    ) {
 
+    }
 }
