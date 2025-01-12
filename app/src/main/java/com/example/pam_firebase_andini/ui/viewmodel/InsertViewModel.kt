@@ -55,6 +55,11 @@ class InsertViewModel (
         }
     }
 
+    fun resetForm() {
+        uiEvent = InsertUiState()
+        uiState = FormState.Idle
+    }
+
 }
 
 sealed class FormState {
