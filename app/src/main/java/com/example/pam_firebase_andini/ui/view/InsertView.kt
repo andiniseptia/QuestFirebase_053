@@ -41,6 +41,18 @@ import com.example.pam_firebase_andini.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
+@Composable
+fun InsertBodyMhs(
+    modifier: Modifier = Modifier,
+    onValueChange: (MahasiswaEvent) -> Unit,
+    uiState: InsertUiState,
+    onClick: () -> Unit,
+    homeUiState: FormState
+) {
+
+}
+
 @Composable
 fun FormMahasiswa(
     mahasiswaEvent: MahasiswaEvent = MahasiswaEvent(),
