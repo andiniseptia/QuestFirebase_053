@@ -62,16 +62,23 @@ class NetworkMahasiswaRepository(
 
 
     override suspend fun getMahasiswaById(nim: String): Flow<Mahasiswa> = callbackFlow {
-       val mhsDocument = firestore.collection("Mahasiswa")
-           .document(nim)
-           .addSnapshotListener { value, error ->
-               if (value != null) {
-                   val mhs = value.toObject(Mahasiswa::class.java)!!
-                   trySend(mhs)
-               }
-           }
-        awaitClose {
-            mhsDocument.remove()
-        }
+        val mhsCollection = firestore.collection("Mahasiswa")
+            .whereEqualTo("nim", nim)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    close(error)
+                } else {
+                    if (value != null && value.documents.isNotEmpty()) {
+                        val mahasiswa = value.documents.firstOrNull()?.toObject(Mahasiswa::class.java)
+                        mahasiswa?.let {
+                            trySend(it)
+                        } ?: close(Exception("Tidak ada data mahasiswa"))
+                    } else {
+                        close(Exception("Tidak ada data mahasiswa"))
+                    }
+                }
+            }
+
+        awaitClose { mhsCollection.remove() }
     }
 }
